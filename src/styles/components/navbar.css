@@ -1,0 +1,347 @@
+/* ==========================================================================
+   NAVBAR — fixed top bar: logo + gallery CTA
+   ========================================================================== */
+
+/* Logo — AM monogram */
+.navbar-logo {
+  display: block;
+  height: 2.75rem;
+  width: auto;
+  object-fit: contain;
+  object-position: left center;
+  filter: brightness(0) invert(1);
+  transition: var(--transition-all-fast);
+}
+
+.navbar-logo:hover {
+  opacity: 0.8;
+  transform: scale(1.06);
+}
+
+@media (min-width: 640px) {
+  .navbar-logo { height: 3rem; }
+}
+
+/* Signature (legacy — kept for compatibility) */
+.navbar-signature {
+  display: block;
+  height: 2rem;
+  width: auto;
+  max-width: min(11rem, 42vw);
+  object-fit: contain;
+  object-position: left center;
+  filter: brightness(0) invert(1)
+    drop-shadow(0 0 10px rgb(255 255 255 / 0.22))
+    drop-shadow(0 1px 2px rgb(0 0 0 / 0.35));
+}
+
+@media (min-width: 640px) {
+  .navbar-signature { height: 2.25rem; max-width: 13rem; }
+}
+
+/* Gallery CTA pill button */
+.navbar-gallery-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.25rem;
+  padding: 0.45rem 1.1rem;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--clr-white-95);
+  text-decoration: none;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--clr-white-22);
+  background: var(--clr-white-08);
+  backdrop-filter: blur(10px) saturate(115%);
+  -webkit-backdrop-filter: blur(10px) saturate(115%);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.18);
+  transition: var(--transition-all-fast);
+}
+
+.navbar-gallery-cta:hover {
+  border-color: var(--clr-white-30);
+  background: var(--clr-white-12);
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.22);
+  transform: translateY(-1px);
+}
+
+@media (min-width: 640px) {
+  .navbar-gallery-cta {
+    padding: 0.5rem 1.4rem;
+    font-size: 0.8125rem;
+  }
+}
+
+/* ==========================================================================
+   PRELOADER — cinematic photo slideshow  (7 slides, fully responsive)
+   ========================================================================== */
+
+/* Slow Ken-Burns drift — makes stills feel alive without being distracting */
+@keyframes preloader-kenburns {
+  from { transform: scale(1.0)   translate(0%,    0%);   }
+  to   { transform: scale(1.055) translate(-0.4%, -0.3%); }
+}
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-preloader);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--clr-bg-deep);
+  overflow: hidden;
+  /* Promote to GPU layer early — avoids compositor jank on low-end devices */
+  will-change: opacity, transform, filter;
+}
+
+/* ── Slide container ────────────────────────────────────────────────────── */
+.preloader__slides {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.preloader__slide {
+  position: absolute;
+  inset: 0;
+  will-change: opacity, transform;
+}
+
+.preloader__slide-img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  /*
+   * Subtle colour grade: slight desaturation + warmth push so every
+   * photo feels cohesive regardless of its original white balance.
+   */
+  filter: brightness(0.80) saturate(0.78) sepia(0.06);
+  /*
+   * High-quality sampling hints — matters on Retina / 4K screens
+   * where the browser must downsample from a large source.
+   */
+  image-rendering: auto;
+  /* Ken-Burns: slowly drift the image while it's visible */
+  animation: preloader-kenburns 8s ease-in-out infinite alternate;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* ── Hidden preload rack ────────────────────────────────────────────────────
+   Invisible 1×1 images whose sole job is to prime the browser cache
+   so the NEXT slide is already decoded when the cross-fade fires.
+   ─────────────────────────────────────────────────────────────────────── */
+.preloader__preload-rack {
+  position: absolute;
+  /* Push far off screen — zero visual impact */
+  top: -9999px;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  aria-hidden: true;
+}
+
+.preloader__preload-img {
+  object-fit: cover;
+}
+
+/* ── Overlays ───────────────────────────────────────────────────────────── */
+.preloader__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.preloader__overlay--dark {
+  background: rgb(4 2 1 / 0.52);
+}
+
+.preloader__overlay--vignette {
+  background: radial-gradient(
+    ellipse 78% 68% at 50% 50%,
+    transparent 28%,
+    rgb(0 0 0 / 0.66) 100%
+  );
+}
+
+.preloader__overlay--bottom {
+  background: linear-gradient(to top, rgb(4 2 1 / 0.88) 0%, transparent 38%);
+}
+
+/* ── Central identity ───────────────────────────────────────────────────── */
+.preloader__center {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  pointer-events: none;
+  /* Prevent the centre block from being wider than the viewport */
+  max-width: 90vw;
+}
+
+.preloader__logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preloader__logo {
+  filter: brightness(0) invert(1);
+  opacity: 0.92;
+  object-fit: contain;
+  /* Fluid logo sizing: small on mobile, natural on desktop */
+  max-width: clamp(120px, 25vw, 200px);
+  height: auto;
+}
+
+.preloader__rule {
+  display: block;
+  width: clamp(2rem, 5vw, 4.5rem);
+  height: 1px;
+  margin: clamp(0.7rem, 1.5vh, 1.1rem) auto clamp(0.6rem, 1.2vh, 0.9rem);
+  background: var(--grad-rule-h);
+}
+
+.preloader__subtitle {
+  margin: 0;
+  font-family: var(--font-body);
+  /* Truly fluid — readable on 375 px phones, elegant on 4K */
+  font-size: clamp(0.52rem, 1.15vw, 0.68rem);
+  font-weight: 300;
+  letter-spacing: var(--ls-stamp);
+  text-transform: uppercase;
+  color: var(--clr-amber-45);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ── Slide indicator dots ───────────────────────────────────────────────── */
+.preloader__dots {
+  position: absolute;
+  /* Keep dots above the bottom gradient but below the counter area */
+  bottom: clamp(3.5rem, 7.5vh, 5.5rem);
+  inset-inline: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Dynamic gap: tighter on tiny screens, roomier on large ones */
+  gap: clamp(0.28rem, 0.6vw, 0.5rem);
+  pointer-events: none;
+  /* Constrain row so it can never overflow on very small screens */
+  max-width: 100vw;
+  padding-inline: 1rem;
+  box-sizing: border-box;
+}
+
+.preloader__dot {
+  display: block;
+  height: 1px;
+  /* Fluid inactive dash — narrows on phone, wider on desktop */
+  width: clamp(0.25rem, 0.7vw, 0.4rem);
+  background: var(--clr-amber-30);
+  transition: width 0.38s ease, opacity 0.38s ease, background 0.38s ease;
+  flex-shrink: 0;
+}
+
+.preloader__dot--active {
+  /* Fluid active dash — never too long on mobile */
+  width: clamp(1rem, 3vw, 1.6rem);
+  background: rgb(220 205 180 / 0.8);
+  opacity: 1;
+}
+
+/* ── Bottom bar: status + counter ──────────────────────────────────────── */
+.preloader__bottom {
+  position: absolute;
+  bottom: clamp(1rem, 2.5vh, 2rem);
+  left:   clamp(1rem, 3vw, 2.5rem);
+  right:  clamp(1rem, 3vw, 2.5rem);
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.preloader__status {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--clr-amber-30);
+}
+
+.preloader__counter {
+  font-family: var(--font-body);
+  /* Fluid: big on desktop, modest on phone so it doesn't clash with dots */
+  font-size: clamp(1.2rem, 3.5vw, 2.5rem);
+  font-weight: 100;
+  letter-spacing: 0.12em;
+  color: rgb(230 218 200 / 0.75);
+  line-height: 1;
+  /* Ensure the number is always sharp on high-DPI screens */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.preloader__counter-pct {
+  font-size: 0.55em;
+  color: var(--clr-amber-45);
+  margin-left: 0.1em;
+}
+
+/* ── Thin progress bar at very bottom ──────────────────────────────────── */
+.preloader__bar {
+  position: absolute;
+  bottom: 0;
+  inset-inline: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    var(--clr-amber-45),
+    rgb(220 200 165 / 0.9),
+    var(--clr-amber-45)
+  );
+  transform-origin: left;
+  z-index: 4;
+  will-change: transform;
+}
+
+/* ── Accessibility: honour reduced-motion preference ────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .preloader__slide-img {
+    animation: none;
+  }
+}
+
+/* ── Mobile (<= 480 px) — tighten spacing, keep everything visible ───────── */
+@media (max-width: 480px) {
+  .preloader__subtitle {
+    letter-spacing: 0.22em;
+  }
+  .preloader__dots {
+    gap: 0.3rem;
+  }
+}
+
+/* ── Landscape phones — dots above the counter, avoid clipping ──────────── */
+@media (max-width: 767px) and (orientation: landscape) {
+  .preloader__dots {
+    bottom: clamp(2.8rem, 12vw, 4rem);
+  }
+  .preloader__center {
+    transform: scale(0.88);
+  }
+}

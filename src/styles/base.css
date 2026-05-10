@@ -1,0 +1,83 @@
+/* ==========================================================================
+   BASE — resets, global body, scrollbar, and shared text-gradient helpers.
+   Depends on: tokens.css
+   ========================================================================== */
+
+/* ── Tailwind layer ── */
+@import "tailwindcss";
+
+/* ── Theme bridge (Tailwind v4 inline theme) ── */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-comfortaa);
+}
+
+/* ── System colour-scheme (kept for non-site pages / fallback) ── */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+/* ── Body ── */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-display);
+}
+
+/* ── Scrollbar — hidden globally ── */
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Scroll snap — toggled by ScrollSnapController on home ── */
+html.snap-home {
+  scroll-snap-type: y mandatory;
+}
+
+/* ── Reusable text-gradient utilities ── */
+.text-gradient {
+  background: var(--grad-text-cool);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-warm {
+  background: var(--grad-text-warm);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── Reusable horizontal rule ── */
+.rule-h {
+  display: block;
+  height: 1px;
+  background: var(--grad-rule-h);
+}
+
+.rule-white-h {
+  display: block;
+  height: 1px;
+  background: var(--grad-rule-white-h);
+}
+
+/* ── Safe-area aware padding utility ── */
+.safe-px {
+  padding-left:  max(var(--px-page), env(safe-area-inset-left,  0px));
+  padding-right: max(var(--px-page), env(safe-area-inset-right, 0px));
+}

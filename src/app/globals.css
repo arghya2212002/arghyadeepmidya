@@ -1,0 +1,21 @@
+/* ==========================================================================
+   GLOBALS — entry point. Imports only. All rules live in their own file.
+
+   Load order:
+     1. tokens      — CSS custom properties (colors, fonts, spacing, etc.)
+     2. base        — resets, body, scrollbar, text-gradient helpers
+     3. layout      — container, section shells, grid utilities
+     4. navbar      — Navbar + Preloader
+     5. hero        — Hero section + scroll hint
+     6. footer      — About section + Site footer
+     7. gallery     — Gallery intro, photo grid, lightbox
+   ========================================================================== */
+
+@import "../styles/tokens.css";
+@import "../styles/base.css";
+@import "../styles/layout.css";
+@import "../styles/components/navbar.css";
+@import "../styles/components/hero.css";
+@import "../styles/components/footer.css";
+@import "../styles/components/gallery.css";
+@import "../styles/components/education.css";

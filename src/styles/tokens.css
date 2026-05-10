@@ -1,0 +1,177 @@
+/* ==========================================================================
+   DESIGN TOKENS — single source of truth for every value in the project.
+   Every color, font, space, radius, shadow and timing lives here.
+   Reference these in component CSS via var(--token-name).
+   ========================================================================== */
+
+:root {
+
+  /* ── Palette ────────────────────────────────────────────────────────────── */
+
+  /* Base darks (cinematic, warm-black palette) */
+  --clr-bg-deepest:   #030201;   /* absolute darkest (preloader, gallery) */
+  --clr-bg-deep:      #060402;   /* hero / preloader base */
+  --clr-bg-dark:      #0a0806;   /* gallery body bg */
+  --clr-bg-dark-2:    #08080b;   /* about + footer bg top */
+  --clr-bg-dark-3:    #030305;   /* footer bg bottom */
+  --clr-bg-cell:      #0d0b08;   /* photo cell / lightbox bg */
+
+  /* Whites with opacity — use alpha notation  */
+  --clr-white:        rgb(255 255 255 / 1);
+  --clr-white-95:     rgb(255 255 255 / 0.95);
+  --clr-white-90:     rgb(255 255 255 / 0.90);
+  --clr-white-70:     rgb(255 255 255 / 0.70);
+  --clr-white-55:     rgb(255 255 255 / 0.55);
+  --clr-white-45:     rgb(255 255 255 / 0.45);
+  --clr-white-40:     rgb(255 255 255 / 0.40);
+  --clr-white-30:     rgb(255 255 255 / 0.30);
+  --clr-white-22:     rgb(255 255 255 / 0.22);
+  --clr-white-18:     rgb(255 255 255 / 0.18);
+  --clr-white-12:     rgb(255 255 255 / 0.12);
+  --clr-white-10:     rgb(255 255 255 / 0.10);
+  --clr-white-08:     rgb(255 255 255 / 0.08);
+  --clr-white-07:     rgb(255 255 255 / 0.07);
+  --clr-white-04:     rgb(255 255 255 / 0.04);
+
+  /* Warm amber / gold (cinematic accent) */
+  --clr-amber-96:     rgb(238 230 218 / 0.96);
+  --clr-amber-75:     rgb(230 215 190 / 0.92);
+  --clr-amber-60:     rgb(210 195 170 / 0.60);
+  --clr-amber-55:     rgb(210 190 155 / 0.55);
+  --clr-amber-45:     rgb(200 185 160 / 0.45);
+  --clr-amber-38:     rgb(200 185 160 / 0.38);
+  --clr-amber-30:     rgb(200 185 160 / 0.30);
+
+  /* Social brand accents */
+  --clr-instagram:  rgba(239,  68,  68, 1);
+  --clr-facebook:   rgba( 59, 130, 246, 1);
+  --clr-linkedin:   rgba( 10, 102, 194, 1);
+  --clr-gmail:      rgba(234,  67,  53, 1);
+
+  /* ── Typography ─────────────────────────────────────────────────────────── */
+
+  --font-display: var(--font-comfortaa), Arial, Helvetica, sans-serif;
+  --font-body:    var(--font-roboto), 'Helvetica Neue', Arial, sans-serif;
+  --font-serif:   var(--font-playfair), Georgia, serif;
+
+  /* Scale (fluid where possible) */
+  --text-2xs:  0.5625rem;      /* 9px  */
+  --text-xs:   0.625rem;       /* 10px */
+  --text-sm:   0.75rem;        /* 12px */
+  --text-base: 0.875rem;       /* 14px */
+  --text-md:   1rem;           /* 16px */
+  --text-lg:   1.125rem;       /* 18px */
+  --text-xl:   1.25rem;        /* 20px */
+
+  /* Letter spacing */
+  --ls-tight:  -0.02em;
+  --ls-normal:  0.02em;
+  --ls-wide:    0.08em;
+  --ls-wider:   0.18em;
+  --ls-widest:  0.32em;
+  --ls-stamp:   0.42em;
+
+  /* ── Spacing ─────────────────────────────────────────────────────────────── */
+
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* Fluid horizontal padding for page sections */
+  --px-page: clamp(1rem, 5vw, 2.5rem);
+
+  /* Max-widths */
+  --mw-content: 72rem;   /* general content */
+  --mw-narrow:  56rem;   /* gallery hero */
+  --mw-text:    38ch;    /* readable prose */
+
+  /* ── Radii ───────────────────────────────────────────────────────────────── */
+
+  --radius-sm:   0.25rem;
+  --radius-md:   0.5rem;
+  --radius-lg:   1rem;
+  --radius-pill: 9999px;
+
+  /* ── Borders ─────────────────────────────────────────────────────────────── */
+
+  --border-subtle:  1px solid var(--clr-white-07);
+  --border-light:   1px solid var(--clr-white-10);
+  --border-mid:     1px solid var(--clr-white-18);
+  --border-strong:  1px solid var(--clr-white-22);
+
+  /* ── Shadows ─────────────────────────────────────────────────────────────── */
+
+  --shadow-sm:   0 4px 24px rgb(0 0 0 / 0.50);
+  --shadow-md:   0 8px 40px rgb(0 0 0 / 0.70);
+  --shadow-lg:   0 12px 56px rgb(0 0 0 / 0.80);
+  --shadow-xl:   0 32px 80px rgb(0 0 0 / 0.70);
+  --shadow-glow: 0 0 12px rgb(255 255 255 / 0.35);
+  --shadow-inset-subtle: 0 0 0 1px var(--clr-white-04) inset;
+
+  /* ── Transitions ─────────────────────────────────────────────────────────── */
+
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-std:   ease;
+  --dur-fast:   0.2s;
+  --dur-base:   0.3s;
+  --dur-slow:   0.65s;
+
+  /* Reusable transition shorthands */
+  --transition-color:  color var(--dur-fast) var(--ease-std),
+                       border-color var(--dur-fast) var(--ease-std);
+  --transition-lift:   transform var(--dur-fast) var(--ease-std),
+                       box-shadow var(--dur-fast) var(--ease-std);
+  --transition-all-fast: color var(--dur-fast) var(--ease-std),
+                         border-color var(--dur-fast) var(--ease-std),
+                         background var(--dur-fast) var(--ease-std),
+                         transform var(--dur-fast) var(--ease-std);
+
+  /* ── Breakpoints (reference only — use in @media queries) ───────────────── */
+  /*
+    --bp-sm:  480px
+    --bp-md:  640px
+    --bp-lg:  768px
+    --bp-xl:  900px
+    --bp-2xl: 1280px
+  */
+
+  /* ── Z-index scale ───────────────────────────────────────────────────────── */
+
+  --z-base:      0;
+  --z-above:     1;
+  --z-nav:      50;
+  --z-stamp:    40;
+  --z-lightbox: 100;
+  --z-preloader:9999;
+
+  /* ── Gradients (reusable) ────────────────────────────────────────────────── */
+
+  --grad-rule-h: linear-gradient(90deg, transparent, var(--clr-amber-55), transparent);
+  --grad-rule-v: linear-gradient(to bottom, var(--clr-amber-45), transparent);
+  --grad-rule-white-h: linear-gradient(90deg, transparent, var(--clr-white-55), transparent);
+
+  --grad-footer-bg:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgb(40 55 80 / 0.12), transparent 55%),
+    linear-gradient(180deg, var(--clr-bg-dark-2) 0%, var(--clr-bg-dark-3) 100%);
+
+  --grad-about-bg:
+    linear-gradient(180deg,
+      rgb(0 0 0 / 0.92) 0%,
+      rgb(8 8 12) 12%,
+      rgb(6 6 10) 45%,
+      rgb(3 3 6) 100%),
+    radial-gradient(ellipse 100% 70% at 50% 0%, rgb(30 58 90 / 0.14), transparent 55%),
+    radial-gradient(ellipse 80% 50% at 80% 100%, rgb(45 35 70 / 0.1), transparent 50%);
+
+  --grad-text-warm: linear-gradient(90deg, #e8d5b0 0%, #ffffff 45%, #c9b48a 100%);
+  --grad-text-cool: linear-gradient(90deg, #dbeafe 0%, #ffffff 50%, #d4d4d8 100%);
+}

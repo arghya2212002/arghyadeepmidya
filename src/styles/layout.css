@@ -1,0 +1,70 @@
+/* ==========================================================================
+   LAYOUT — containers, page wrappers, sections, responsive grids.
+   Depends on: tokens.css
+   ========================================================================== */
+
+/* ── Content container ── */
+.container {
+  width: 100%;
+  max-width: var(--mw-content);
+  margin-inline: auto;
+  padding-inline: var(--px-page);
+}
+
+.container--narrow {
+  max-width: var(--mw-narrow);
+}
+
+/* ── Section shells ── */
+.section-full {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  overflow: hidden;
+}
+
+.section-full--snap {
+  scroll-snap-align: start;
+}
+
+.section-full--snap-end {
+  scroll-snap-align: end;
+}
+
+/* ── Centred flex column (used inside full-height sections) ── */
+.col-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+
+/* ── Standard 2-column responsive grid ── */
+.grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+
+@media (max-width: 479px) {
+  .grid-2col {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+}
+
+/* ── Span all columns ── */
+.col-full {
+  grid-column: 1 / -1;
+}
+
+/* ── Safe-area insets for fixed/absolute elements ── */
+.inset-safe {
+  padding:
+    max(var(--space-4), env(safe-area-inset-top,    0px))
+    max(var(--space-4), env(safe-area-inset-right,  0px))
+    max(var(--space-4), env(safe-area-inset-bottom, 0px))
+    max(var(--space-4), env(safe-area-inset-left,   0px));
+}

@@ -1,0 +1,198 @@
+/* ==========================================================================
+   HERO — full-bleed photo section with focal-point tracking
+   ========================================================================== */
+
+/* Hero focus point — tweak --hero-focus-x/y to reframe subject per breakpoint */
+.hero-section {
+  --hero-focus-x: 50%;
+  --hero-focus-y: 54%;
+
+  min-height: 100svh;
+  min-height: 100dvh;
+  padding-top:    max(0.75rem, env(safe-area-inset-top,    0px));
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+  padding-left:   max(1rem,    env(safe-area-inset-left,   0px));
+  padding-right:  max(1rem,    env(safe-area-inset-right,  0px));
+  scroll-snap-align: start;
+}
+
+.hero-section .hero-content { max-width: 100%; }
+
+.hero-focus-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--hero-focus-x) var(--hero-focus-y);
+  opacity: 0.95;
+  filter: brightness(0.82);
+}
+
+/* ── Focal-point breakpoints ─────────────────────────────────────────────── */
+
+@media (max-aspect-ratio: 9 / 18) {
+  .hero-section { --hero-focus-x: 50%; --hero-focus-y: 48%; }
+}
+
+@media (min-aspect-ratio: 9 / 18) and (max-aspect-ratio: 9 / 15) {
+  .hero-section { --hero-focus-x: 50%; --hero-focus-y: 50%; }
+}
+
+@media (orientation: portrait) and (min-aspect-ratio: 9 / 15) and (max-aspect-ratio: 3 / 4) {
+  .hero-section { --hero-focus-x: 50%; --hero-focus-y: 52%; }
+}
+
+@media (min-aspect-ratio: 3 / 4) and (max-aspect-ratio: 5 / 4) {
+  .hero-section { --hero-focus-x: 50%; --hero-focus-y: 53%; }
+}
+
+@media (orientation: landscape) and (min-aspect-ratio: 16 / 10) and (max-aspect-ratio: 21 / 9) {
+  .hero-section { --hero-focus-x: 50%; --hero-focus-y: 55%; }
+}
+
+@media (min-aspect-ratio: 21 / 9) {
+  .hero-section { --hero-focus-x: 50%; --hero-focus-y: 56%; }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .hero-section { --hero-focus-x: 50%; --hero-focus-y: 50%; }
+}
+
+@media (min-width: 1280px) {
+  .hero-section { --hero-focus-x: 50%; --hero-focus-y: 54%; }
+}
+
+/* Phones */
+@media (max-width: 767px) {
+  .hero-section { --hero-focus-x: 68%; --hero-focus-y: 50%; }
+}
+
+@media (max-width: 480px) {
+  .hero-section { --hero-focus-x: 72%; --hero-focus-y: 48%; }
+}
+
+@media (max-width: 380px) {
+  .hero-section { --hero-focus-x: 74%; --hero-focus-y: 46%; }
+}
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 1200px) {
+  .hero-section { --hero-focus-x: 64%; --hero-focus-y: 52%; }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .hero-section { --hero-focus-x: 68%; --hero-focus-y: 52%; }
+}
+
+@media (min-width: 768px) and (max-width: 1200px) and (orientation: landscape) {
+  .hero-section { --hero-focus-x: 62%; --hero-focus-y: 50%; }
+}
+
+@media (min-width: 1201px) and (max-width: 1366px) {
+  .hero-section { --hero-focus-x: 60%; --hero-focus-y: 52%; }
+}
+
+@media (orientation: landscape) and (max-width: 932px) and (max-height: 500px) {
+  .hero-section { --hero-focus-x: 66%; --hero-focus-y: 48%; }
+}
+
+/* ── Scroll hint ─────────────────────────────────────────────────────────── */
+
+@keyframes hero-scroll-wheel {
+  0%   { transform: translate3d(0, 0, 0); opacity: 1; }
+  55%  { transform: translate3d(0, 10px, 0); opacity: 0.15; }
+  70%  { transform: translate3d(0, 10px, 0); opacity: 0; }
+  71%  { transform: translate3d(0, 0, 0); opacity: 0; }
+  100% { transform: translate3d(0, 0, 0); opacity: 1; }
+}
+
+@keyframes hero-scroll-hint-fade {
+  0%, 100% { opacity: 0.55; }
+  50%       { opacity: 0.95; }
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: max(0.85rem, env(safe-area-inset-bottom, 0px));
+  z-index: var(--z-nav);
+  display: flex;
+  width: fit-content;
+  max-width: min(20rem, calc(100vw - 2rem));
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  margin-inline: auto;
+  padding-inline: 0.75rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .hero-scroll-hint {
+    bottom: max(1.65rem, env(safe-area-inset-bottom, 0px));
+    gap: 0.85rem;
+    padding-inline: 1rem;
+  }
+}
+
+.hero-scroll-hint__rule {
+  width: 2.5rem;
+  height: 1px;
+  flex-shrink: 0;
+  background: var(--grad-rule-white-h);
+  opacity: 0.85;
+}
+
+.hero-scroll-hint__label {
+  margin: 0;
+  max-width: 100%;
+  font-size: clamp(0.5625rem, 2.5vw, 0.75rem);
+  font-weight: 300;
+  line-height: 1.5;
+  letter-spacing: var(--ls-stamp);
+  font-variant: small-caps;
+  text-wrap: balance;
+  filter: drop-shadow(0 0 18px rgb(255 255 255 / 0.15));
+  background: linear-gradient(180deg,
+    rgb(255 255 255 / 0.95) 0%,
+    rgb(255 255 255 / 0.55) 42%,
+    rgb(255 255 255 / 0.32) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: hero-scroll-hint-fade 4s ease-in-out infinite;
+}
+
+@media (min-width: 640px) {
+  .hero-scroll-hint__label { font-size: 0.6875rem; letter-spacing: 0.48em; }
+}
+
+@media (min-width: 768px) {
+  .hero-scroll-hint__label { font-size: var(--text-sm); letter-spacing: 0.52em; }
+}
+
+.hero-scroll-hint__mouse {
+  position: relative;
+  display: flex;
+  height: 2.35rem;
+  width: 1.35rem;
+  flex-shrink: 0;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0.45rem;
+  border: 1px solid var(--clr-white-30);
+  border-radius: var(--radius-pill);
+  background: linear-gradient(165deg, rgb(255 255 255 / 0.08) 0%, transparent 55%);
+  box-shadow: var(--shadow-inset-subtle), 0 8px 24px rgb(0 0 0 / 0.15);
+}
+
+.hero-scroll-hint__wheel {
+  display: block;
+  width: 0.2rem;
+  height: 0.45rem;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(180deg, var(--clr-white-95), rgb(255 255 255 / 0.35));
+  box-shadow: var(--shadow-glow);
+  animation: hero-scroll-wheel 2.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
